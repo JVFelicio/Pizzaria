@@ -22,19 +22,13 @@ class Services
         var pizza_encontrada = new Pizza();
         int total = cardapio.Count();
 
-        for (int i = 0; i < total; i++)
+        for (int i = 0; i <= total; i++)
         {
             if (cardapio[i].Id == id)
             {
                 pizza_encontrada = new Pizza(cardapio[i].Sabor, cardapio[i].Tamanho, cardapio[i].Preco);
-                break;
+                return pizza_encontrada;
             }
-            else
-            {
-                Console.WriteLine($"Pizza nao encontrada...do else");
-                Console.ReadLine();
-            }
-
         }
         return pizza_encontrada;
     }
