@@ -36,19 +36,38 @@ class Interfaces
 
     public static void showCardapio()
     {
-        Program.cardapio.ForEach(pizza => Console.WriteLine(
-            $"Sabor:{pizza.Sabor} Tamanho:{pizza.Tamanho} Preço:{pizza.Preco.ToString("C")} Id:{pizza.Id}"
-            ));
+        Console.WriteLine($"\n----------CARDÁPIO----------");
+        Program.cardapio.ForEach(pizza =>
+        {
+
+            Console.WriteLine($"Sabor:{pizza.Sabor} Tamanho:{pizza.Tamanho} Preço:{pizza.Preco.ToString("C")} Id:{pizza.Id}");
+            Console.WriteLine($"_____________________________");
+        });
     }
 
     public static void showNovoPedido()
     {
+        var pizzas_selecionadas = new List<Pizza>();
         Console.WriteLine($"Novo pedido iniciado");
         Console.Write($"\nNome do Cliente:");
         string nomeCliente = Console.ReadLine();
 
         Console.Clear();
-        Console.Write($"\nVamos escolher um sabor, selecione a Pizza pelo ID:");
+        Console.WriteLine($"\nVamos escolher um sabor, selecione a Pizza pelo ID:");
+        bool executing = true;
+        while (executing)
+        {
+            Interfaces.showCardapio();
+            Console.WriteLine($"Qual o Id da pizza ?");
+            int id_pizza = int.Parse(Console.ReadLine());
+            pizzas_selecionadas = Services.getPizzaCardapio(id_pizza);
+
+
+            Console.WriteLine($"Deseja adicionar mais uma pizza ? Sim:1 Nao: 2");
+            int resp = int.Parse(Console.ReadLine());
+            executing = resp != 1 ? false : true;
+
+        }
 
     }
 
