@@ -22,24 +22,23 @@ class Interfaces
 
             Pizza pizzaNova = new Pizza(id, sabor, tamanho, preco);
 
-            Pizza.setPizzaCardapio(pizzaNova);
+            Services.setPizzaCardapio(pizzaNova);
 
             Console.WriteLine($"Deseja cadastrar mais uma pizza\nSim: 1\nNão:0");
             int resp = int.Parse(Console.ReadLine());
 
-            if (resp != 1)
-            {
-                executing = false;
-            }
+            executing = resp != 1 ? false : true;
         }
+
         Console.WriteLine($"Pizzas Cadastradas com sucesso, pressione enter para continuar...");
         Console.ReadLine();
-
     }
 
     public static void showCardapio()
     {
-        Program.cardapio.ForEach(pizza => Console.WriteLine($"Sabor:{pizza.Sabor} Tamanho:{pizza.Tamanho} Preço:{pizza.Preco.ToString("C")} Id:{pizza.Id}"));
+        Program.cardapio.ForEach(pizza => Console.WriteLine(
+            $"Sabor:{pizza.Sabor} Tamanho:{pizza.Tamanho} Preço:{pizza.Preco.ToString("C")} Id:{pizza.Id}"
+            ));
     }
 
     public static void showNovoPedido()
@@ -48,8 +47,8 @@ class Interfaces
         Console.Write($"\nNome do Cliente:");
         string nomeCliente = Console.ReadLine();
 
-
-
+        Console.Clear();
+        Console.Write($"\nVamos escolher um sabor, selecione a Pizza pelo ID:");
 
     }
 

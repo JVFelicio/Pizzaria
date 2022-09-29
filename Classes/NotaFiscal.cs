@@ -1,8 +1,10 @@
 class NotaFiscal
 {
+    //**atributos
     public string NomeCliente;
     private string ID_Nota;
-    public Pizza PizzaEscolhida;
+    public List<Pizza> PizzaEscolhida;
     private double Total;
+
 
 }
