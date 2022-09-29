@@ -16,32 +16,26 @@ class Services
         Program.cardapio.Add(novaPizza);
     }
 
-    public static List<Pizza> getPizzaCardapio(int id)
+    public static Pizza getPizzaCardapio(int id)
     {
         var cardapio = Program.cardapio;
         var pizza_encontrada = new Pizza();
-        var selecionada = new List<Pizza>();
+        int total = cardapio.Count();
 
-        foreach (var item in cardapio)
+        for (int i = 0; i < total; i++)
         {
-            if (item.Id == id)
+            if (cardapio[i].Id == id)
             {
-                Console.WriteLine($"cardapio dentro do getcardapio if certo");
-                Console.WriteLine(item.Sabor + " " + item.Tamanho + " " + item.Preco);
-                pizza_encontrada = new Pizza(item.Sabor, item.Tamanho, item.Preco);
-                selecionada.Add(pizza_encontrada);
-                Console.ReadLine();
-
+                pizza_encontrada = new Pizza(cardapio[i].Sabor, cardapio[i].Tamanho, cardapio[i].Preco);
                 break;
             }
             else
             {
-                Console.WriteLine($"Pizza não encontrada...");
+                Console.WriteLine($"Pizza nao encontrada...do else");
                 Console.ReadLine();
-                break;
             }
 
         }
-        return selecionada;
+        return pizza_encontrada;
     }
 };

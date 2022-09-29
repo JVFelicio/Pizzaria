@@ -48,6 +48,7 @@ class Interfaces
     public static void showNovoPedido()
     {
         var pizzas_selecionadas = new List<Pizza>();
+
         Console.WriteLine($"Novo pedido iniciado");
         Console.Write($"\nNome do Cliente:");
         string nomeCliente = Console.ReadLine();
@@ -57,17 +58,20 @@ class Interfaces
         bool executing = true;
         while (executing)
         {
+            var pizzaEscolhida = new Pizza(); //
             Interfaces.showCardapio();
             Console.WriteLine($"Qual o Id da pizza ?");
             int id_pizza = int.Parse(Console.ReadLine());
-            pizzas_selecionadas = Services.getPizzaCardapio(id_pizza);
-
+            pizzaEscolhida = Services.getPizzaCardapio(id_pizza);
+            pizzas_selecionadas.Add(pizzaEscolhida);
 
             Console.WriteLine($"Deseja adicionar mais uma pizza ? Sim:1 Nao: 2");
             int resp = int.Parse(Console.ReadLine());
             executing = resp != 1 ? false : true;
 
         }
+        Console.WriteLine($"__________Pizzas selecionadas_________");
+        pizzas_selecionadas.ForEach(pizza => Console.WriteLine(pizza.Sabor + " " + pizza.Tamanho + " " + pizza.Preco));
 
     }
 
