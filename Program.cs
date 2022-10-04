@@ -1,17 +1,23 @@
 ﻿class Program
 {
     public static List<Pizza> cardapio = new List<Pizza>();
+    public static List<Adicionais> extras = new List<Adicionais>();
     public static void Main(string[] args)
     {
         Pizza pizzaTeste = new Pizza(0, "Queijo", "G", 20.00);
         cardapio.Add(pizzaTeste);
-        Console.Clear();
 
+        Adicionais refrigerante = new Adicionais("Refrigerante", 8.00, 1);
+        Adicionais borda = new Adicionais("Borda", 5.00, 2);
+        extras.Add(borda);
+        extras.Add(refrigerante);
+
+        Console.Clear();
         bool executing = true;
 
         while (executing)
         {
-            Console.WriteLine($"|--------- Pizzaria Florência ---------|\n|                                      |\n|--------------------------------------|");
+            Console.WriteLine($"Pizzaria Florência");
             Console.WriteLine($"Para cadastrar uma nova pizza: 1\nPara iniciar um novo pedido: 2\nPara encerrar: 0");
             int option = int.Parse(Console.ReadLine());
 

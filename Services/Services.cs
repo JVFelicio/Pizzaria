@@ -32,4 +32,21 @@ class Services
         }
         return pizza_encontrada;
     }
+    public static Adicionais getItemAdicional(int id)
+    {
+        var extras = Program.extras;
+        var item_encontrado = new Adicionais();
+        int total = extras.Count();
+
+        for (int i = 0; i <= total; i++)
+        {
+            if (extras[i].ID == id)
+            {
+                item_encontrado = new Adicionais(extras[i].Item, extras[i].Preco);
+                return item_encontrado;
+            }
+        }
+        return item_encontrado;
+
+    }
 };

@@ -44,10 +44,21 @@ class Interfaces
             Console.WriteLine($"_____________________________");
         });
     }
+    public static void showAdicionais()
+    {
+        Console.WriteLine($"\n----------ADICIONAIS----------");
+        Program.extras.ForEach(extra =>
+        {
+
+            Console.WriteLine($"Item:{extra.Item} Preço:{extra.Preco.ToString("C")} Id:{extra.ID}");
+            Console.WriteLine($"_____________________________");
+        });
+    }
 
     public static void showNovoPedido()
     {
         var pizzas_selecionadas = new List<Pizza>();
+        var adicionais_selecionadas = new List<Adicionais>();
 
         Console.WriteLine($"Novo pedido iniciado");
         Console.Write($"\nNome do Cliente:");
@@ -70,14 +81,31 @@ class Interfaces
             executing = resp != 1 ? false : true;
 
         }
+
+        Console.Clear();
+        Console.WriteLine($"Deseja adicionar Extras ? Sim:1 Nao:0");
+        int opt = int.Parse(Console.ReadLine());
+        executing = opt != 1 ? false : true;
+        while (executing)
+        {
+            var itemEscolhido = new Adicionais(); //
+            Interfaces.showAdicionais();
+            Console.WriteLine($"Qual o Id do item ?");
+            int id_item = int.Parse(Console.ReadLine());
+            itemEscolhido = Services.getItemAdicional(id_item);
+            adicionais_selecionadas.Add(itemEscolhido);
+
+            Console.WriteLine($"Deseja adicionar mais um item ? Sim:1 Nao: 2");
+            int resp = int.Parse(Console.ReadLine());
+            executing = resp != 1 ? false : true;
+
+        }
+
+        string id_comanda = Services.setIdAleatório();
+
         Console.WriteLine($"__________Pizzas selecionadas_________");
         pizzas_selecionadas.ForEach(pizza => Console.WriteLine(pizza.Sabor + " " + pizza.Tamanho + " " + pizza.Preco));
 
     }
 
-    public static void showExtraItens()
-    {
-        Console.WriteLine($"Lista de Itens Adicionais");
-
-    }
 }
