@@ -2,6 +2,7 @@
 {
     public static List<Pizza> cardapio = new List<Pizza>();
     public static List<Adicionais> extras = new List<Adicionais>();
+    public static List<NotaFiscal> notasFiscais = new List<NotaFiscal>();
     public static void Main(string[] args)
     {
         Pizza pizzaTeste = new Pizza(0, "Queijo", "G", 20.00);
@@ -9,8 +10,8 @@
 
         Adicionais refrigerante = new Adicionais("Refrigerante", 8.00, 1);
         Adicionais borda = new Adicionais("Borda", 5.00, 2);
-        extras.Add(borda);
         extras.Add(refrigerante);
+        extras.Add(borda);
 
         Console.Clear();
         bool executing = true;

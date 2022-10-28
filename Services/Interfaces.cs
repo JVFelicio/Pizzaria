@@ -55,6 +55,14 @@ class Interfaces
         });
     }
 
+    public static void showComanda(int optn)
+    {
+
+    }
+
+
+
+
     public static void showNovoPedido()
     {
         var pizzas_selecionadas = new List<Pizza>();
@@ -69,7 +77,7 @@ class Interfaces
         bool executing = true;
         while (executing)
         {
-            var pizzaEscolhida = new Pizza(); //
+            var pizzaEscolhida = new Pizza();
             Interfaces.showCardapio();
             Console.WriteLine($"Qual o Id da pizza ?");
             int id_pizza = int.Parse(Console.ReadLine());
@@ -79,6 +87,7 @@ class Interfaces
             Console.WriteLine($"Deseja adicionar mais uma pizza ? Sim:1 Nao: 2");
             int resp = int.Parse(Console.ReadLine());
             executing = resp != 1 ? false : true;
+            Console.Clear();
 
         }
 
@@ -102,9 +111,71 @@ class Interfaces
         }
 
         string id_comanda = Services.setIdAleatório();
+        var comanda = new NotaFiscal(id_comanda, nomeCliente, pizzas_selecionadas, adicionais_selecionadas);
+        Program.notasFiscais.Add(comanda);
+        Console.Clear();
 
-        Console.WriteLine($"__________Pizzas selecionadas_________");
-        pizzas_selecionadas.ForEach(pizza => Console.WriteLine(pizza.Sabor + " " + pizza.Tamanho + " " + pizza.Preco));
+        Console.WriteLine($"Pagar agora: 1 - Adicionar valor: 2 Pagar depois: 3");
+        opt = int.Parse(Console.ReadLine());
+        switch (opt)
+        {
+            case 1:
+                string status = "";
+                bool exec = true;
+                var totalCliente = 0.0;
+
+                while (exec)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"__________ NOTA FISCAL __________");
+                    Console.WriteLine($"ID {comanda.ID_Nota}");
+                    Console.WriteLine($"\nCliente {comanda.NomeCliente}");
+                    Console.WriteLine($"__________ SUAS PIZZAS _________");
+                    for (int i = 0; i < comanda.PizzasEscolhidas.Count; i++)
+                    {
+                        Console.WriteLine($"Sabor: {comanda.PizzasEscolhidas[i].Sabor} Tamanho: {comanda.PizzasEscolhidas[i].Tamanho} Preço: {comanda.PizzasEscolhidas[i].Preco.ToString("C")}");
+                    }
+
+                    Console.WriteLine($"__________ SEUS ADICIONAIS_________");
+                    for (int i = 0; i < comanda.ItensAdicionais.Count; i++)
+                    {
+                        Console.WriteLine($"Item: {comanda.ItensAdicionais[i].Item} Preço:{comanda.ItensAdicionais[i].Preco.ToString("C")}");
+                    }
+                    comanda.ValorTotal = comanda.getTotalDaNota();
+                    Console.WriteLine($"________ TOTAL _________");
+
+                    while (exec)
+                    {
+                        Console.WriteLine($"{comanda.ValorTotal.ToString("C")} STATUS {status = comanda.Status}");
+                        Console.WriteLine($"Valor pago pelo Cliente");
+                        totalCliente = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                        comanda.ValorTotal = comanda.ValorTotal - totalCliente;
+                        exec = comanda.ValorTotal > 0 ? true : false;
+                    }
+                    Console.WriteLine($"STATUS {status = "PAGA"}");
+
+                }
+                break;
+
+            case 2:
+                totalCliente = 0.0;
+                Console.WriteLine($"Qual o valor a ser adicionado ?");
+                totalCliente = double.Parse(Console.ReadLine());
+                Console.ReadLine();
+                break;
+
+            case 3:
+                Console.WriteLine($"FIM opt 3");
+                Console.ReadLine();
+                break;
+            default:
+                Console.WriteLine($"default");
+                Console.ReadLine();
+                break;
+
+        }
+
+
 
     }
 
