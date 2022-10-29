@@ -1,5 +1,5 @@
 using System.Globalization;
-class Interfaces
+static class Interfaces
 {
     public static void showCadastrarPizza()
     {
@@ -108,6 +108,43 @@ class Interfaces
             int resp = int.Parse(Console.ReadLine());
             executing = resp != 1 ? false : true;
 
+        }
+        Console.Clear();
+
+        Console.WriteLine($"Deseja remover alguma pizza da nota? Sim 1 Não 2");
+        opt = int.Parse(Console.ReadLine());
+        executing = opt != 1 ? false : true;
+        while (executing)
+        {
+            for (int i = 0; i < pizzas_selecionadas.Count(); i++)
+            {
+                Console.WriteLine($"{pizzas_selecionadas[i].Sabor} {pizzas_selecionadas[i].Preco.ToString("C")} id {i}");
+            }
+            Console.WriteLine($"Qual o id da pizza que deseja remover ?");
+            int id = int.Parse(Console.ReadLine());
+            pizzas_selecionadas.RemoveAt(id);
+
+            Console.WriteLine($"Deseja remover mais itens ? Sim 1 Não 2");
+            opt = int.Parse(Console.ReadLine());
+            executing = opt != 1 ? false : true;
+        }
+
+        Console.WriteLine($"Deseja remover alguma adicional da nota? Sim 1 Não 2");
+        opt = int.Parse(Console.ReadLine());
+        executing = opt != 1 ? false : true;
+        while (executing)
+        {
+            for (int i = 0; i < adicionais_selecionadas.Count(); i++)
+            {
+                Console.WriteLine($"{adicionais_selecionadas[i].Item} {adicionais_selecionadas[i].Preco.ToString("C")} id {i}");
+            }
+            Console.WriteLine($"Qual o id do adicional que deseja remover ?");
+            int id = int.Parse(Console.ReadLine());
+            adicionais_selecionadas.RemoveAt(id);
+
+            Console.WriteLine($"Deseja remover mais itens ? Sim 1 Não 2");
+            opt = int.Parse(Console.ReadLine());
+            executing = opt != 1 ? false : true;
         }
 
         string id_comanda = Services.setIdAleatório();
