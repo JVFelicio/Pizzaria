@@ -19,7 +19,7 @@
         while (executing)
         {
             Console.WriteLine($"Pizzaria Florência");
-            Console.WriteLine($"Para cadastrar uma nova pizza: 1\nPara iniciar um novo pedido: 2\nPara encerrar: 0");
+            Console.WriteLine($"Para cadastrar uma nova pizza: 1\nPara iniciar um novo pedido: 2\nPara pagar uma comanda aberta: 3\nPara encerrar: 0");
             int option = int.Parse(Console.ReadLine());
 
 
@@ -32,16 +32,20 @@
                 case 2:
                     Interfaces.showNovoPedido();
                     break;
+                case 3:
+                    Interfaces.showComanda();
+                    break;
+
+                default:
+                    break;
 
             }
 
-            Console.WriteLine($"Voltar ao menu:1 Encerrar:0");
+            Console.WriteLine($"Voltar ao menu:1 Finalizar:0");
             int resp = int.Parse(Console.ReadLine());
             executing = resp != 1 ? false : true;
 
         }
-
-
 
     }
 };

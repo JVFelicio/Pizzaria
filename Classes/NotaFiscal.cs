@@ -54,8 +54,5 @@ class NotaFiscal
 
         Console.WriteLine($"________________________");
 
-        Console.WriteLine($"Total da Nota");
-        getTotalDaNota().ToString("C");
-
     }
 }

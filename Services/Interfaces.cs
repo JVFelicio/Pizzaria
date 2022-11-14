@@ -55,14 +55,6 @@ static class Interfaces
         });
     }
 
-    public static void showComanda(int optn)
-    {
-
-    }
-
-
-
-
     public static void showNovoPedido()
     {
         var pizzas_selecionadas = new List<Pizza>();
@@ -189,31 +181,75 @@ static class Interfaces
                         comanda.ValorTotal = comanda.ValorTotal - totalCliente;
                         exec = comanda.ValorTotal > 0 ? true : false;
                     }
+                    comanda.Status = "PAGA";
                     Console.WriteLine($"STATUS {status = "PAGA"}");
-
                 }
                 break;
 
             case 2:
                 totalCliente = 0.0;
+                comanda.ValorTotal = comanda.getTotalDaNota();
                 Console.WriteLine($"Qual o valor a ser adicionado ?");
                 totalCliente = double.Parse(Console.ReadLine());
-                Console.ReadLine();
+                comanda.ValorTotal -= totalCliente;
                 break;
 
             case 3:
-                Console.WriteLine($"FIM opt 3");
-                Console.ReadLine();
-                break;
-            default:
-                Console.WriteLine($"default");
+                comanda.ValorTotal = comanda.getTotalDaNota();
+                Console.WriteLine($"Pagar depois...Enter para continuar:");
                 Console.ReadLine();
                 break;
 
         }
+    }
+    public static void showComanda()
+    {
+        Console.Clear();
+        var exec = true;
+        var comandas = Program.notasFiscais;
 
+        Console.WriteLine($"COMANDAS ABERTAS");
+        while (exec)
+        {
+            comandas.ForEach(comanda =>
+            {
+                if (comanda.Status == "EM ABERTO")
+                {
+                    Console.WriteLine($" ID: {comanda.ID_Nota} Cliente: {comanda.NomeCliente}");
+                }
+
+            });
+
+            Console.WriteLine($"Qual o Id da Nota que deseja realizar o pagamento");
+            var idBuscar = Console.ReadLine();
+
+            for (var i = 0; i < comandas.Count; i++)
+            {
+                if (comandas[i].ID_Nota == idBuscar)
+                {
+                    Console.WriteLine($"Cliente: {comandas[i].NomeCliente}");
+                    Console.WriteLine($"Total: {comandas[i].ValorTotal.ToString("C")}");
+                    Console.WriteLine($"Status {comandas[i].Status}");
+
+                    bool pag = true;
+
+                    do
+                    {
+                        Console.WriteLine($"Qual o valor pago pelo cliente");
+                        var total_cliente = double.Parse(Console.ReadLine());
+                        comandas[i].ValorTotal -= total_cliente;
+                        pag = comandas[i].ValorTotal > 0 ? true : false;
+
+                        Console.WriteLine($"Total: {comandas[i].ValorTotal.ToString("C")}");
+                        Console.WriteLine($"Status {comandas[i].Status = (pag == true ? "EM ABERTO" : "PAGO")}");
+
+                    } while (pag);
+                }
+
+            };
+            exec = false;
+        }
 
 
     }
-
 }
